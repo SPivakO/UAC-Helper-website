@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UA Helper — UAC Bulk Upload</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+  <main class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <section class="rounded-2xl bg-white p-6 text-center shadow-sm sm:p-10">
+      <h1 class="mx-auto max-w-3xl text-3xl font-bold leading-tight sm:text-5xl">
+        🤬За*бался тратить часы на заливку крео в UAC?
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">
+        Хватит тратить рабочий день на monkey-job – автоматизируй рутину и команда скажет тебе "Спасибо!"
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+        <button
+          type="button"
+          data-open-demo
+          class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Book a demo
+        </button>
+        <a
+          href="#roi"
+          class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-6 py-3 text-base font-semibold text-slate-700 transition hover:bg-slate-100"
+        >
+          Посчитать экономию
+        </a>
+      </div>
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-2xl font-bold sm:text-3xl">Для кого</h2>
+      <div class="mt-5 grid grid-cols-3 gap-4">
+        <article class="rounded-xl bg-white p-5 shadow-sm">
+          <h3 class="text-lg font-semibold text-center">Усталый закущик руками</h3>
+        </article>
+        <article class="rounded-xl bg-white p-5 shadow-sm">
+          <h3 class="text-lg font-semibold text-center">Лид, который хочет сэкономить время и деньги</h3>
+        </article>
+        <article class="rounded-xl bg-white p-5 shadow-sm sm:col-span-2 lg:col-span-1">
+          <h3 class="text-lg font-semibold text-center">Лид, который печется о психическом здоровье команды</h3>
+        </article>
+      </div>
+    </section>
+
+    <section id="roi" class="mt-8 rounded-2xl bg-white p-6 shadow-sm sm:p-8">
+      <h2 class="text-2xl font-bold sm:text-3xl">Сколько времени и денег идет на ручное добавление Youtube ссылок в UAC?</h2>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <label class="block">
+          <span class="text-sm font-medium text-slate-700">% рабочего времени</span>
+          <input id="uploadPercent" type="number" min="0" max="100" step="1" value="20" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none ring-indigo-500 focus:ring" />
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium text-slate-700">Стоимость специалиста, $</span>
+          <input id="monthlySalary" type="number" min="0" step="100" value="3000" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none ring-indigo-500 focus:ring" />
+        </label>
+      </div>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div id="burnMoneyCard" class="rounded-xl bg-indigo-600 p-5 text-white shadow-sm transition-colors">
+          <p class="text-sm text-indigo-100">Это стоит тебе</p>
+          <p id="burnMoneyOut" class="mt-2 text-3xl font-extrabold sm:text-4xl">$0/мес</p>
+          <p id="burnHoursCardOut" class="mt-2 text-lg font-semibold text-indigo-100">0 часов/мес</p>
+          <p id="validationMessage" class="mt-3 hidden text-sm font-medium"></p>
+        </div>
+        <div class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+          <p class="text-sm text-slate-600">В год это</p>
+          <p id="burnMoneyYearOut" class="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">$0/год</p>
+          <p id="burnHoursYearCardOut" class="mt-2 text-lg font-semibold text-slate-700">0 часов/год</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-0 rounded-2xl bg-white px-[25px] py-8 text-center shadow-sm">
+      <h2 class="py-[9px] text-2xl font-bold sm:text-3xl">Мы сделали работу за Google:
+      </h2>
+      <img
+        src="assets/frame-793-1.png"
+        alt="Скрин интерфейса сервиса"
+        class="mx-auto w-full rounded-xl border border-slate-200 shadow-sm"
+      />
+      <div class="mt-5 rounded-xl bg-slate-50 px-5 py-[15px]">
+        <ul class="space-y-3 text-slate-700">
+          <li>- Загрузка в десятки аккаунтов и сотни кампаний в 1 клик.</li>
+          <li>- Сервис создает отдельную ad group с нужным неймингом и статусом старта/паузы.</li>
+          <li>- Видео загружаются через bulk-вставку всех ссылок на нужные YouTube-видео.</li>
+          <li>- Дашборд аналитики: кросс-аккаунтная аналитика по креативам суммарно по выбранным аккаунтам и кампаниям.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mt-0 rounded-2xl bg-white p-6 text-center shadow-sm sm:p-8">
+      <h2 class="text-2xl font-bold sm:text-3xl">Price</h2>
+      <div class="mx-auto mt-5 max-w-md rounded-xl border border-slate-200 p-5 text-center shadow-sm">
+        <p class="text-3xl font-extrabold">$199 <span class="text-base font-medium text-slate-600">/ month</span></p>
+        <ul class="mt-4 space-y-2 text-slate-700">
+          <li>- Bulk upload креативов</li>
+          <li>- Дашборд аналитики</li>
+        </ul>
+        <button
+          type="button"
+          data-open-demo
+          class="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-indigo-600 px-5 py-3 font-semibold text-white transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Book a demo
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div id="demoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 p-4">
+    <div class="w-full max-w-md rounded-xl bg-white p-5 shadow-xl sm:p-6">
+      <div class="flex items-start justify-between">
+        <h3 class="text-xl font-bold">Book a demo</h3>
+        <button id="closeModalBtn" type="button" class="rounded-md px-2 py-1 text-slate-500 hover:bg-slate-100 hover:text-slate-700" aria-label="Close">
+          ✕
+        </button>
+      </div>
+
+      <form id="demoForm" class="mt-4 space-y-4" novalidate>
+        <div>
+          <label for="name" class="block text-sm font-medium text-slate-700">Name</label>
+          <input id="name" name="name" type="text" required class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none ring-indigo-500 focus:ring" />
+          <p id="nameError" class="mt-1 min-h-[20px] text-sm text-rose-600"></p>
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-slate-700">Email</label>
+          <input id="email" name="email" type="email" required class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none ring-indigo-500 focus:ring" />
+          <p id="emailError" class="mt-1 min-h-[20px] text-sm text-rose-600"></p>
+        </div>
+        <p id="formStatus" class="min-h-[20px] text-sm"></p>
+        <button
+          id="submitBtn"
+          type="submit"
+          class="inline-flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 font-semibold text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          Send
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSe2ppCU-n1UNWzOBky8offuZ3Gi4oBtC_9mOuVLdTvsI0r6sw/formResponse";
+    const GOOGLE_FORM_FIELDS = {
+      name: "entry.1253364346",
+      email: "entry.1399037352"
+    };
+    const STANDARD_WORK_WEEK_HOURS = 40;
+
+    const formatNumber = (value, maximumFractionDigits = 1) =>
+      new Intl.NumberFormat("ru-RU", { maximumFractionDigits }).format(value);
+    const formatMoney = (value) =>
+      "$" + new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(Math.round(value));
+
+    const roiInputs = {
+      uploadPercent: document.getElementById("uploadPercent"),
+      monthlySalary: document.getElementById("monthlySalary"),
+    };
+
+    const roiOutputs = {
+      burnMoneyOut: document.getElementById("burnMoneyOut"),
+      burnHoursCardOut: document.getElementById("burnHoursCardOut"),
+      burnMoneyYearOut: document.getElementById("burnMoneyYearOut"),
+      burnHoursYearCardOut: document.getElementById("burnHoursYearCardOut"),
+      burnMoneyCard: document.getElementById("burnMoneyCard"),
+      validationMessage: document.getElementById("validationMessage"),
+    };
+
+    const toSafeNumber = (value) => {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+    };
+
+    function recalculateROI() {
+      const rawPercent = toSafeNumber(roiInputs.uploadPercent.value);
+      const uploadPercent = Math.min(100, rawPercent);
+      const monthlySalary = toSafeNumber(roiInputs.monthlySalary.value);
+
+      const burnMoneyMonthly = monthlySalary * (uploadPercent / 100);
+      const burnMoneyYearly = burnMoneyMonthly * 12;
+      const burnHoursWeek = STANDARD_WORK_WEEK_HOURS * (uploadPercent / 100);
+      const burnHoursMonth = burnHoursWeek * 4.33;
+      const burnHoursYear = burnHoursMonth * 12;
+
+      roiOutputs.burnMoneyOut.textContent = `${formatMoney(burnMoneyMonthly)}/мес`;
+      roiOutputs.burnHoursCardOut.textContent = `${formatNumber(burnHoursMonth, 1)} часов/мес`;
+      roiOutputs.burnMoneyYearOut.textContent = `${formatMoney(burnMoneyYearly)}/год`;
+      roiOutputs.burnHoursYearCardOut.textContent = `${formatNumber(burnHoursYear, 1)} часов/год`;
+
+      // Валидация: если меньше $600/мес, показываем предупреждение
+      if (burnMoneyMonthly < 600) {
+        roiOutputs.burnMoneyCard.classList.remove("bg-indigo-600");
+        roiOutputs.burnMoneyCard.classList.add("bg-rose-600");
+        roiOutputs.validationMessage.classList.remove("hidden");
+        roiOutputs.validationMessage.textContent = "⚠️ Извини, но тебе этот сервис, скорее всего, не подойдет";
+      } else {
+        roiOutputs.burnMoneyCard.classList.remove("bg-rose-600");
+        roiOutputs.burnMoneyCard.classList.add("bg-indigo-600");
+        roiOutputs.validationMessage.classList.add("hidden");
+      }
+    }
+
+    Object.values(roiInputs).forEach((input) => {
+      input.addEventListener("input", recalculateROI);
+    });
+    recalculateROI();
+
+    const modal = document.getElementById("demoModal");
+    const openButtons = document.querySelectorAll("[data-open-demo]");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const demoForm = document.getElementById("demoForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const formStatus = document.getElementById("formStatus");
+
+    function openModal() {
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.classList.add("overflow-hidden");
+      nameInput.focus();
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    openButtons.forEach((button) => button.addEventListener("click", openModal));
+    closeModalBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+    });
+
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function setFieldError(el, message) {
+      el.textContent = message;
+    }
+
+    function resetErrors() {
+      setFieldError(nameError, "");
+      setFieldError(emailError, "");
+      formStatus.textContent = "";
+      formStatus.className = "min-h-[20px] text-sm";
+    }
+
+    async function sendLeadToGoogleForm(name, email) {
+      const formData = new FormData();
+      formData.append(GOOGLE_FORM_FIELDS.name, name);
+      formData.append(GOOGLE_FORM_FIELDS.email, email);
+
+      // Отправляем в Google Form через скрытый iframe, чтобы избежать CORS
+      const iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = GOOGLE_FORM_ACTION;
+      form.target = 'hidden_iframe';
+
+      const nameInput = document.createElement('input');
+      nameInput.type = 'hidden';
+      nameInput.name = GOOGLE_FORM_FIELDS.name;
+      nameInput.value = name;
+      form.appendChild(nameInput);
+
+      const emailInput = document.createElement('input');
+      emailInput.type = 'hidden';
+      emailInput.name = GOOGLE_FORM_FIELDS.email;
+      emailInput.value = email;
+      form.appendChild(emailInput);
+
+      document.body.appendChild(form);
+      form.submit();
+
+      // Очищаем через секунду
+      setTimeout(() => {
+        document.body.removeChild(form);
+        document.body.removeChild(iframe);
+      }, 1000);
+    }
+
+    demoForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      resetErrors();
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      let hasErrors = false;
+
+      if (!name) {
+        setFieldError(nameError, "Введите имя.");
+        hasErrors = true;
+      }
+
+      if (!email) {
+        setFieldError(emailError, "Введите email.");
+        hasErrors = true;
+      } else if (!validateEmail(email)) {
+        setFieldError(emailError, "Введите корректный email.");
+        hasErrors = true;
+      }
+
+      if (hasErrors) return;
+
+      submitBtn.disabled = true;
+      formStatus.textContent = "Отправляем...";
+      formStatus.classList.add("text-slate-600");
+
+      try {
+        await sendLeadToGoogleForm(name, email);
+        formStatus.textContent = "Спасибо! Напишем на email в течение 24 часов.";
+        formStatus.className = "min-h-[20px] text-sm text-emerald-700";
+
+        setTimeout(() => {
+          demoForm.reset();
+          resetErrors();
+          closeModal();
+          submitBtn.disabled = false;
+        }, 1400);
+      } catch (error) {
+        formStatus.textContent = "Не удалось отправить форму. Попробуйте еще раз.";
+        formStatus.className = "min-h-[20px] text-sm text-rose-600";
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
