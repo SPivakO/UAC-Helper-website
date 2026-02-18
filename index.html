@@ -15,22 +15,37 @@
           fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
           colors: {
             brand: {
-              50:  '#f3f0ff',
-              100: '#e9e0ff',
-              200: '#d4c4ff',
-              300: '#b89aff',
-              400: '#9b6dff',
-              500: '#7c3aed',
-              600: '#6d28d9',
-              700: '#5b21b6',
-              800: '#4c1d95',
-              900: '#3b0f7a',
+              50:  '#e8f0fe',
+              100: '#d2e3fc',
+              200: '#aecbfa',
+              300: '#8ab4f8',
+              400: '#669df6',
+              500: '#4285f4',
+              600: '#1a73e8',
+              700: '#1967d2',
+              800: '#185abc',
+              900: '#174ea6',
+            },
+            ggreen: {
+              400: '#5bb974',
+              500: '#34a853',
+              600: '#1e8e3e',
+            },
+            gred: {
+              400: '#ee675c',
+              500: '#ea4335',
+              600: '#d93025',
+            },
+            gyellow: {
+              400: '#fdd663',
+              500: '#fbbc04',
+              600: '#f9ab00',
             },
             dark: {
-              900: '#0a0a1a',
-              800: '#111128',
-              700: '#1a1a36',
-              600: '#242445',
+              900: '#0d1117',
+              800: '#161b22',
+              700: '#21262d',
+              600: '#30363d',
             },
           },
         },
@@ -89,8 +104,8 @@
     .stagger-4 { transition-delay: 0.4s; }
 
     .hero-gradient {
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.25) 0%, transparent 60%),
-                  linear-gradient(180deg, #0a0a1a 0%, #111128 100%);
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(66,133,244,0.2) 0%, transparent 60%),
+                  linear-gradient(180deg, #0d1117 0%, #161b22 100%);
     }
 
     .glow-card {
@@ -104,7 +119,7 @@
       border-radius: inherit;
       padding: 1px;
       pointer-events: none;
-      background: linear-gradient(135deg, rgba(124,58,237,0.3), transparent 50%, rgba(124,58,237,0.1));
+      background: linear-gradient(135deg, rgba(66,133,244,0.35), transparent 50%, rgba(66,133,244,0.1));
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
@@ -123,8 +138,8 @@
       animation: pulseGlow 3s ease-in-out infinite;
     }
     @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 20px rgba(124,58,237,0.2); }
-      50% { box-shadow: 0 0 40px rgba(124,58,237,0.4); }
+      0%, 100% { box-shadow: 0 0 20px rgba(66,133,244,0.2); }
+      50% { box-shadow: 0 0 40px rgba(66,133,244,0.35); }
     }
 
     .counter-animate {
@@ -132,7 +147,7 @@
     }
 
     nav.scrolled {
-      background: rgba(10, 10, 26, 0.95);
+      background: rgba(13, 17, 23, 0.95);
       backdrop-filter: blur(12px);
       box-shadow: 0 4px 30px rgba(0,0,0,0.3);
     }
@@ -190,7 +205,7 @@
         <button
           type="button"
           data-open-demo
-          class="group inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-8 py-4 text-base font-bold text-white shadow-xl shadow-brand-500/25 transition-all hover:bg-brand-600 hover:shadow-brand-500/40 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-dark-900"
+          class="group inline-flex items-center justify-center gap-2 rounded-xl bg-ggreen-500 px-8 py-4 text-base font-bold text-white shadow-xl shadow-ggreen-500/25 transition-all hover:bg-ggreen-600 hover:shadow-ggreen-500/40 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-ggreen-400 focus:ring-offset-2 focus:ring-offset-dark-900"
         >
           Book a demo
           <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
@@ -224,14 +239,14 @@
   <!-- Pain Points -->
   <section id="pain-points" class="relative py-20 sm:py-28 overflow-hidden">
     <div class="absolute inset-0">
-      <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rose-500/20 to-transparent"></div>
-      <div class="absolute top-1/3 left-0 h-64 w-64 rounded-full bg-rose-500/5 blur-[100px]"></div>
-      <div class="absolute bottom-1/4 right-0 h-48 w-48 rounded-full bg-rose-500/5 blur-[80px]"></div>
+      <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gred-500/20 to-transparent"></div>
+      <div class="absolute top-1/3 left-0 h-64 w-64 rounded-full bg-gred-500/5 blur-[100px]"></div>
+      <div class="absolute bottom-1/4 right-0 h-48 w-48 rounded-full bg-gred-500/5 blur-[80px]"></div>
     </div>
 
     <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <div class="animate-on-scroll text-center">
-        <span class="inline-flex items-center gap-2 rounded-full border border-rose-500/20 bg-rose-500/10 px-4 py-1.5 text-sm font-semibold text-rose-400">
+        <span class="inline-flex items-center gap-2 rounded-full border border-gred-500/20 bg-gred-500/10 px-4 py-1.5 text-sm font-semibold text-gred-400">
           <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
           Знакомые проблемы?
         </span>
@@ -243,51 +258,150 @@
 
       <div class="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-2">
         <!-- Pain 1 -->
-        <div class="animate-on-scroll stagger-1 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-rose-500/30 sm:p-8">
-          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/10 text-sm font-bold text-rose-400 sm:top-8 sm:right-8">01</div>
-          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10">
-            <svg class="h-6 w-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+        <div class="animate-on-scroll stagger-1 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-gred-500/30 sm:p-8">
+          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-gred-500/10 text-sm font-bold text-gred-400 sm:top-8 sm:right-8">01</div>
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gred-500/10">
+            <svg class="h-6 w-6 text-gred-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
           </div>
           <h3 class="text-lg font-bold sm:text-xl">Каждое видео — руками, по одному</h3>
-          <p class="mt-3 leading-relaxed text-slate-400">Процесс заливки видео в Google UAC невыносимо муторный: каждое видео, предварительно загруженное на YouTube, приходится добавлять <span class="text-rose-400 font-semibold">вручную, по одному</span>. При десятках креативов это превращается в часы бессмысленной рутины.</p>
+          <p class="mt-3 leading-relaxed text-slate-400">Процесс заливки видео в Google UAC невыносимо муторный: каждое видео, предварительно загруженное на YouTube, приходится добавлять <span class="text-gred-400 font-semibold">вручную, по одному</span>. При десятках креативов это превращается в часы бессмысленной рутины.</p>
         </div>
 
         <!-- Pain 2 -->
-        <div class="animate-on-scroll stagger-2 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-rose-500/30 sm:p-8">
-          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/10 text-sm font-bold text-rose-400 sm:top-8 sm:right-8">02</div>
-          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10">
-            <svg class="h-6 w-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+        <div class="animate-on-scroll stagger-2 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-gred-500/30 sm:p-8">
+          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-gred-500/10 text-sm font-bold text-gred-400 sm:top-8 sm:right-8">02</div>
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gred-500/10">
+            <svg class="h-6 w-6 text-gred-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
           </div>
           <h3 class="text-lg font-bold sm:text-xl">Нет bulk-операций с видео</h3>
-          <p class="mt-3 leading-relaxed text-slate-400">Google <span class="text-rose-400 font-semibold">не даёт</span> массово управлять видео. Хочешь убрать одно видео из всех кампаний, адгрупп и аккаунтов? Придётся заходить в каждый и удалять вручную. Добавить в 50 кампаний — то же самое, x50.</p>
+          <p class="mt-3 leading-relaxed text-slate-400">Google <span class="text-gred-400 font-semibold">не даёт</span> массово управлять видео. Хочешь убрать одно видео из всех кампаний, адгрупп и аккаунтов? Придётся заходить в каждый и удалять вручную. Добавить в 50 кампаний — то же самое, x50.</p>
         </div>
 
         <!-- Pain 3 -->
-        <div class="animate-on-scroll stagger-3 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-rose-500/30 sm:p-8">
-          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/10 text-sm font-bold text-rose-400 sm:top-8 sm:right-8">03</div>
-          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10">
-            <svg class="h-6 w-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
+        <div class="animate-on-scroll stagger-3 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-gred-500/30 sm:p-8">
+          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-gred-500/10 text-sm font-bold text-gred-400 sm:top-8 sm:right-8">03</div>
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gred-500/10">
+            <svg class="h-6 w-6 text-gred-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
           </div>
           <h3 class="text-lg font-bold sm:text-xl">Адгруппы нельзя копировать массово</h3>
-          <p class="mt-3 leading-relaxed text-slate-400">Креативные тесты? Новые адгруппы с новыми видео? Забудь о «сделать разом». Нужно <span class="text-rose-400 font-semibold">бегать в каждый аккаунт</span> и руками собирать адгруппы. 10 аккаунтов = 10 раз одно и то же.</p>
+          <p class="mt-3 leading-relaxed text-slate-400">Креативные тесты? Новые адгруппы с новыми видео? Забудь о «сделать разом». Нужно <span class="text-gred-400 font-semibold">бегать в каждый аккаунт</span> и руками собирать адгруппы. 10 аккаунтов = 10 раз одно и то же.</p>
         </div>
 
         <!-- Pain 4 -->
-        <div class="animate-on-scroll stagger-4 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-rose-500/30 sm:p-8">
-          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/10 text-sm font-bold text-rose-400 sm:top-8 sm:right-8">04</div>
-          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10">
-            <svg class="h-6 w-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" /></svg>
+        <div class="animate-on-scroll stagger-4 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-gred-500/30 sm:p-8">
+          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-gred-500/10 text-sm font-bold text-gred-400 sm:top-8 sm:right-8">04</div>
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gred-500/10">
+            <svg class="h-6 w-6 text-gred-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" /></svg>
           </div>
           <h3 class="text-lg font-bold sm:text-xl">Репортинг — тёмный лес</h3>
-          <p class="mt-3 leading-relaxed text-slate-400">Аналитика по креативам в Google UAC <span class="text-rose-400 font-semibold">неинформативна и запутана</span>. А если у тебя несколько аккаунтов, посмотреть перформ видео кросс-аккаунтно — это квест уровня «невозможно».</p>
+          <p class="mt-3 leading-relaxed text-slate-400">Аналитика по креативам в Google UAC <span class="text-gred-400 font-semibold">неинформативна и запутана</span>. А если у тебя несколько аккаунтов, посмотреть перформ видео кросс-аккаунтно — это квест уровня «невозможно».</p>
         </div>
       </div>
 
       <!-- Bottom accent -->
-      <div class="animate-on-scroll mt-12 rounded-2xl border border-rose-500/10 bg-gradient-to-r from-rose-500/5 via-dark-800 to-rose-500/5 px-6 py-5 text-center sm:px-10">
+      <div class="animate-on-scroll mt-12 rounded-2xl border border-gred-500/10 bg-gradient-to-r from-gred-500/5 via-dark-800 to-gred-500/5 px-6 py-5 text-center sm:px-10">
         <p class="text-lg font-semibold text-slate-300">
-          Итого: <span class="text-rose-400">часы рутины</span> каждую неделю, <span class="text-rose-400">выгорание</span> команды и <span class="text-rose-400">деньги на ветер</span>
+          Итого: <span class="text-gred-400">часы рутины</span> каждую неделю, <span class="text-gred-400">выгорание</span> команды и <span class="text-gred-400">деньги на ветер</span>
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transformation: Pain → Solution -->
+  <section class="relative py-20 sm:py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-500/20 to-transparent"></div>
+      <div class="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/5 blur-[120px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="animate-on-scroll text-center">
+        <span class="inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/10 px-4 py-1.5 text-sm font-semibold text-brand-400">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          Как это меняется с UA Helper
+        </span>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+          Было <span class="text-gred-400">больно</span> — стало <span class="text-brand-400">быстро</span>
+        </h2>
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <!-- Before -->
+        <div class="animate-on-scroll-left">
+          <p class="mb-4 text-sm font-bold uppercase tracking-wider text-gred-400">Без UA Helper</p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4 rounded-xl border border-gred-500/10 bg-dark-800 p-5">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gred-500/15">
+                <svg class="h-3.5 w-3.5 text-gred-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </span>
+              <p class="text-slate-300">Каждое видео добавляешь руками, по одному в каждый аккаунт</p>
+            </div>
+            <div class="flex items-start gap-4 rounded-xl border border-gred-500/10 bg-dark-800 p-5">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gred-500/15">
+                <svg class="h-3.5 w-3.5 text-gred-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </span>
+              <p class="text-slate-300">Создаёшь адгруппы вручную — 10 аккаунтов = 10 раз одно и то же</p>
+            </div>
+            <div class="flex items-start gap-4 rounded-xl border border-gred-500/10 bg-dark-800 p-5">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gred-500/15">
+                <svg class="h-3.5 w-3.5 text-gred-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </span>
+              <p class="text-slate-300">Аналитику собираешь из разных аккаунтов в таблички руками</p>
+            </div>
+            <div class="flex items-start gap-4 rounded-xl border border-gred-500/10 bg-dark-800 p-5">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gred-500/15">
+                <svg class="h-3.5 w-3.5 text-gred-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </span>
+              <p class="text-slate-300">Часы рутины каждый день, выгорание, текучка</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- After -->
+        <div class="animate-on-scroll-right">
+          <p class="mb-4 text-sm font-bold uppercase tracking-wider text-brand-400">С UA Helper</p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4 rounded-xl border border-brand-500/10 bg-dark-800 p-5">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <p class="text-slate-300">Вставил ссылки — видео залиты во все аккаунты и кампании разом</p>
+            </div>
+            <div class="flex items-start gap-4 rounded-xl border border-brand-500/10 bg-dark-800 p-5">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <p class="text-slate-300">Адгруппы создаются автоматически с нужным неймингом и статусом</p>
+            </div>
+            <div class="flex items-start gap-4 rounded-xl border border-brand-500/10 bg-dark-800 p-5">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <p class="text-slate-300">Кросс-аккаунтная аналитика по креативам — в одном дашборде</p>
+            </div>
+            <div class="flex items-start gap-4 rounded-xl border border-brand-500/10 bg-dark-800 p-5">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <p class="text-slate-300">Команда занимается стратегией, а не monkey-job</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="animate-on-scroll mt-12 flex flex-col items-center gap-6 rounded-2xl border border-brand-500/10 bg-gradient-to-r from-brand-500/5 via-dark-800 to-brand-500/5 px-6 py-8 text-center sm:px-10">
+        <p class="text-xl font-bold sm:text-2xl">
+          Вместо <span class="text-gred-400 line-through decoration-gred-400/50">часов рутины</span> — <span class="text-brand-400">минуты на заливку</span>
+        </p>
+        <button
+          type="button"
+          data-open-demo
+          class="group inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-8 py-4 text-base font-bold text-white shadow-xl shadow-brand-500/25 transition-all hover:bg-brand-600 hover:shadow-brand-500/40 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-dark-900"
+        >
+          Попробовать
+          <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -330,7 +444,7 @@
       <div class="animate-on-scroll text-center">
         <span class="inline-flex items-center rounded-full bg-brand-500/10 px-4 py-1.5 text-sm font-semibold text-brand-400">Затраты сейчас</span>
         <h2 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-          Сколько тебе стоит<br class="hidden sm:block" /> ручной monkey-job?
+          Сколько тебе стоит<br class="hidden sm:block" /> время на заливку видео?
         </h2>
       </div>
 
@@ -440,38 +554,93 @@
       <div class="animate-on-scroll text-center">
         <span class="inline-flex items-center rounded-full bg-brand-500/10 px-4 py-1.5 text-sm font-semibold text-brand-400">Тарифы</span>
         <h2 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">Простая и понятная цена</h2>
-        <p class="mx-auto mt-4 max-w-xl text-slate-400">Один план — все возможности. Без скрытых платежей.</p>
+        <p class="mx-auto mt-4 max-w-xl text-slate-400">Выбери то, что нужно. Без скрытых платежей.</p>
       </div>
 
-      <div class="animate-scale mt-12 mx-auto max-w-md">
-        <div class="glow-card rounded-3xl bg-dark-800 p-8 text-center sm:p-10 pulse-glow">
-          <p class="text-sm font-semibold uppercase tracking-wider text-brand-400">Pro Plan</p>
-          <p class="mt-4 flex items-baseline justify-center gap-1">
-            <span class="text-5xl font-extrabold sm:text-6xl">$199</span>
-            <span class="text-lg text-slate-400">/ month</span>
-          </p>
+      <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 mx-auto max-w-3xl">
 
-          <div class="mt-8 space-y-4 text-left">
-            <div class="flex items-center gap-3">
-              <span class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+        <!-- Tier 1: Loader -->
+        <div class="animate-on-scroll stagger-1 rounded-3xl border border-slate-700/50 bg-dark-800 p-7 sm:p-8 flex flex-col">
+          <p class="text-sm font-semibold uppercase tracking-wider text-slate-400">Loader</p>
+          <p class="mt-4 flex items-baseline gap-1">
+            <span class="text-4xl font-extrabold sm:text-5xl">$99</span>
+            <span class="text-lg text-slate-500">/ month</span>
+          </p>
+          <p class="mt-2 text-sm text-slate-400">Bulk-загрузчик креативов через создание адгрупп</p>
+
+          <div class="mt-8 space-y-4 text-left flex-1">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
                 <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               </span>
-              <span class="text-slate-300">Bulk upload креативов</span>
+              <span class="text-slate-300">Bulk upload видео во все аккаунты и кампании</span>
             </div>
-            <div class="flex items-center gap-3">
-              <span class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
                 <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               </span>
-              <span class="text-slate-300">Дашборд аналитики</span>
+              <span class="text-slate-300">Автосоздание адгрупп с неймингом</span>
             </div>
-            <div class="flex items-center gap-3">
-              <span class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <span class="text-slate-300">Bulk-вставка YouTube-ссылок</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <span class="text-slate-300">Статус старта/паузы при создании</span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            data-open-demo
+            class="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-600 bg-dark-700 px-6 py-4 text-base font-bold text-white transition-all hover:border-brand-500 hover:bg-dark-600 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-dark-800"
+          >
+            Book a demo
+          </button>
+        </div>
+
+        <!-- Tier 2: Pro (highlighted) -->
+        <div class="animate-on-scroll stagger-2 glow-card rounded-3xl bg-dark-800 p-7 sm:p-8 flex flex-col relative pulse-glow">
+          <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand-500 px-4 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-brand-500/30">Популярный</span>
+          <p class="text-sm font-semibold uppercase tracking-wider text-brand-400">Pro</p>
+          <p class="mt-4 flex items-baseline gap-1">
+            <span class="text-4xl font-extrabold sm:text-5xl">$199</span>
+            <span class="text-lg text-slate-500">/ month</span>
+          </p>
+          <p class="mt-2 text-sm text-slate-400">Всё из Loader + дашборд аналитики и управление кампаниями</p>
+
+          <div class="mt-8 space-y-4 text-left flex-1">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <span class="text-slate-300">Всё из тарифа Loader</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <span class="text-slate-300">Кросс-аккаунтный дашборд аналитики по креативам</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <span class="text-slate-300">Управление видео внутри кампаний</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
                 <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               </span>
               <span class="text-slate-300">Неограниченные аккаунты</span>
             </div>
-            <div class="flex items-center gap-3">
-              <span class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
                 <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               </span>
               <span class="text-slate-300">Приоритетная поддержка</span>
@@ -487,6 +656,7 @@
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
           </button>
         </div>
+
       </div>
     </div>
   </section>
@@ -522,7 +692,7 @@
           <label for="telegram" class="block text-sm font-semibold text-slate-300">Telegram</label>
           <input id="telegram" name="telegram" type="text" required placeholder="@username"
             class="mt-2 w-full rounded-xl border border-slate-700 bg-dark-700 px-4 py-3 text-white placeholder-slate-500 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/25" />
-          <p id="telegramError" class="mt-1 min-h-[20px] text-sm text-rose-400"></p>
+          <p id="telegramError" class="mt-1 min-h-[20px] text-sm text-gred-400"></p>
         </div>
         <p id="formStatus" class="min-h-[20px] text-sm"></p>
         <button
@@ -600,7 +770,7 @@
       roiOutputs.burnHoursYearCardOut.textContent = `${formatNumber(burnHoursYear, 1)} часов/год`;
 
       if (burnMoneyMonthly < 600) {
-        roiOutputs.burnMoneyCard.className = 'rounded-2xl bg-gradient-to-br from-rose-600 to-rose-800 p-6 text-white shadow-xl shadow-rose-500/15 transition-all';
+        roiOutputs.burnMoneyCard.className = 'rounded-2xl bg-gradient-to-br from-gred-500 to-gred-600 p-6 text-white shadow-xl shadow-gred-500/15 transition-all';
         roiOutputs.validationMessage.classList.remove("hidden");
         roiOutputs.validationMessage.textContent = "Извини, но тебе этот сервис, скорее всего, не подойдет";
       } else {
@@ -681,7 +851,7 @@
       try {
         await sendLeadToGoogleForm(telegram);
         formStatus.textContent = "Спасибо! Напишем в Telegram в течение 24 часов.";
-        formStatus.className = "min-h-[20px] text-sm text-emerald-400";
+        formStatus.className = "min-h-[20px] text-sm text-ggreen-400";
         setTimeout(() => {
           demoForm.reset();
           resetErrors();
@@ -690,7 +860,7 @@
         }, 1400);
       } catch (error) {
         formStatus.textContent = "Не удалось отправить форму. Попробуйте ещё раз.";
-        formStatus.className = "min-h-[20px] text-sm text-rose-400";
+        formStatus.className = "min-h-[20px] text-sm text-gred-400";
         submitBtn.disabled = false;
       }
     });
