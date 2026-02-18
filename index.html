@@ -5,157 +5,560 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UA Helper — UAC Bulk Upload</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#f3f0ff',
+              100: '#e9e0ff',
+              200: '#d4c4ff',
+              300: '#b89aff',
+              400: '#9b6dff',
+              500: '#7c3aed',
+              600: '#6d28d9',
+              700: '#5b21b6',
+              800: '#4c1d95',
+              900: '#3b0f7a',
+            },
+            dark: {
+              900: '#0a0a1a',
+              800: '#111128',
+              700: '#1a1a36',
+              600: '#242445',
+            },
+          },
+        },
+      },
+    };
+  </script>
   <style>
     html { scroll-behavior: smooth; }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .animate-on-scroll-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .animate-on-scroll-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .animate-on-scroll-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .animate-on-scroll-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .animate-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .animate-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+
+    .hero-gradient {
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.25) 0%, transparent 60%),
+                  linear-gradient(180deg, #0a0a1a 0%, #111128 100%);
+    }
+
+    .glow-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .glow-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.3), transparent 50%, rgba(124,58,237,0.1));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    .float-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .pulse-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(124,58,237,0.2); }
+      50% { box-shadow: 0 0 40px rgba(124,58,237,0.4); }
+    }
+
+    .counter-animate {
+      display: inline-block;
+    }
+
+    nav.scrolled {
+      background: rgba(10, 10, 26, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 antialiased">
-  <main class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-    <section class="rounded-2xl bg-white p-6 text-center shadow-sm sm:p-10">
-      <h1 class="mx-auto max-w-3xl text-3xl font-bold leading-tight sm:text-5xl">
-        🤬За*бался тратить часы на заливку крео в UAC?
+<body class="bg-dark-900 font-sans text-white antialiased">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a href="#" class="flex items-center gap-2 text-xl font-extrabold tracking-tight">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-sm font-bold">UA</span>
+        <span>Helper</span>
+      </a>
+      <div class="hidden items-center gap-8 text-sm font-medium text-slate-300 sm:flex">
+        <a href="#pain-points" class="transition hover:text-white">Проблемы</a>
+        <a href="#for-whom" class="transition hover:text-white">Для кого</a>
+        <a href="#roi" class="transition hover:text-white">Калькулятор</a>
+        <a href="#features" class="transition hover:text-white">Фичи</a>
+        <a href="#pricing" class="transition hover:text-white">Цена</a>
+      </div>
+      <button
+        type="button"
+        data-open-demo
+        class="rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-600 hover:shadow-brand-500/40 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-dark-900"
+      >
+        Book a demo
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-gradient relative overflow-hidden pb-20 pt-28 sm:pb-32 sm:pt-36">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-brand-500/10 blur-[120px]"></div>
+      <div class="absolute top-20 right-10 h-40 w-40 rounded-full bg-brand-400/5 blur-[80px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+      <div class="animate-on-scroll">
+        <span class="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/10 px-4 py-1.5 text-sm font-medium text-brand-300">
+          <span class="h-1.5 w-1.5 rounded-full bg-brand-400 animate-pulse"></span>
+          UAC Automation Tool
+        </span>
+      </div>
+      <h1 class="animate-on-scroll stagger-1 mx-auto max-w-4xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">
+        За<span class="text-brand-400">*</span>бался тратить часы
+        <br class="hidden sm:block" />
+        на заливку крео в UAC?
       </h1>
-      <p class="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg">
-        Хватит тратить рабочий день на monkey-job – автоматизируй рутину и команда скажет тебе "Спасибо!"
+      <p class="animate-on-scroll stagger-2 mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-400 sm:text-xl">
+        Хватит тратить рабочий день на monkey-job — заливай видео <span class="text-white font-semibold">десятками</span> сразу!
       </p>
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
+      <div class="animate-on-scroll stagger-3 mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
         <button
           type="button"
           data-open-demo
-          class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          class="group inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-8 py-4 text-base font-bold text-white shadow-xl shadow-brand-500/25 transition-all hover:bg-brand-600 hover:shadow-brand-500/40 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-dark-900"
         >
           Book a demo
+          <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
         </button>
         <a
           href="#roi"
-          class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-6 py-3 text-base font-semibold text-slate-700 transition hover:bg-slate-100"
+          class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-dark-800/50 px-8 py-4 text-base font-semibold text-slate-300 transition-all hover:border-slate-500 hover:bg-dark-700 hover:text-white hover:-translate-y-0.5"
         >
           Посчитать экономию
         </a>
       </div>
-    </section>
 
-    <section class="mt-8">
-      <h2 class="text-2xl font-bold sm:text-3xl">Для кого</h2>
-      <div class="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <article class="flex items-center gap-4 rounded-xl bg-white p-5 shadow-sm sm:flex-col sm:text-center">
-          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-100 text-xl sm:h-12 sm:w-12">😩</span>
-          <p class="text-base font-semibold sm:text-lg">Усталый закупщик руками</p>
-        </article>
-        <article class="flex items-center gap-4 rounded-xl bg-white p-5 shadow-sm sm:flex-col sm:text-center">
-          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-xl sm:h-12 sm:w-12">💰</span>
-          <p class="text-base font-semibold sm:text-lg">Лид, который хочет сэкономить время и деньги</p>
-        </article>
-        <article class="flex items-center gap-4 rounded-xl bg-white p-5 shadow-sm sm:flex-col sm:text-center">
-          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-rose-100 text-xl sm:h-12 sm:w-12">🧘</span>
-          <p class="text-base font-semibold sm:text-lg">Лид, который печется о психическом здоровье команды</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="roi" class="mt-8 rounded-2xl bg-white p-6 shadow-sm sm:p-8">
-      <h2 class="text-2xl font-bold sm:text-3xl">Сколько времени и денег идет на ручное добавление Youtube ссылок в UAC?</h2>
-      <div class="mt-6 grid gap-4 sm:grid-cols-2">
-        <label class="block">
-          <span class="text-sm font-medium text-slate-700">% рабочего времени</span>
-          <input id="uploadPercent" type="number" min="0" max="100" step="1" value="20" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none ring-indigo-500 focus:ring" />
-        </label>
-        <label class="block">
-          <span class="text-sm font-medium text-slate-700">Стоимость специалиста, $</span>
-          <input id="monthlySalary" type="number" min="0" step="100" value="3000" class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none ring-indigo-500 focus:ring" />
-        </label>
-      </div>
-
-      <div class="mt-8 grid gap-4 sm:grid-cols-2">
-        <div id="burnMoneyCard" class="rounded-xl bg-indigo-600 p-5 text-white shadow-sm transition-colors">
-          <p class="text-sm text-indigo-100">Это стоит тебе</p>
-          <p id="burnMoneyOut" class="mt-2 text-3xl font-extrabold sm:text-4xl">$0/мес</p>
-          <p id="burnHoursCardOut" class="mt-2 text-lg font-semibold text-indigo-100">0 часов/мес</p>
-          <p id="validationMessage" class="mt-3 hidden text-sm font-medium"></p>
+      <!-- Stats -->
+      <div class="animate-on-scroll stagger-4 mt-16 grid grid-cols-3 gap-8 border-t border-slate-800 pt-10 sm:mx-auto sm:max-w-lg">
+        <div>
+          <p class="text-2xl font-extrabold text-white sm:text-3xl">10x</p>
+          <p class="mt-1 text-xs text-slate-500 sm:text-sm">Быстрее загрузка</p>
         </div>
-        <div class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-          <p class="text-sm text-slate-600">В год это</p>
-          <p id="burnMoneyYearOut" class="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">$0/год</p>
-          <p id="burnHoursYearCardOut" class="mt-2 text-lg font-semibold text-slate-700">0 часов/год</p>
+        <div>
+          <p class="text-2xl font-extrabold text-white sm:text-3xl">100+</p>
+          <p class="mt-1 text-xs text-slate-500 sm:text-sm">Кампаний за раз</p>
+        </div>
+        <div>
+          <p class="text-2xl font-extrabold text-white sm:text-3xl">0</p>
+          <p class="mt-1 text-xs text-slate-500 sm:text-sm">Monkey-job</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="mt-0 rounded-2xl bg-white px-[25px] py-8 text-center shadow-sm">
-      <h2 class="py-[9px] text-2xl font-bold sm:text-3xl">Мы сделали работу за Google:
-      </h2>
-      <img
-        src="assets/frame-793-1.png"
-        alt="Скрин интерфейса сервиса"
-        class="mx-auto w-full rounded-xl border border-slate-200 shadow-sm"
-      />
-      <div class="mt-5 rounded-xl bg-slate-50 px-5 py-[15px]">
-        <ul class="space-y-3 text-slate-700">
-          <li>- Загрузка в десятки аккаунтов и сотни кампаний в 1 клик.</li>
-          <li>- Сервис создает отдельную ad group с нужным неймингом и статусом старта/паузы.</li>
-          <li>- Видео загружаются через bulk-вставку всех ссылок на нужные YouTube-видео.</li>
-          <li>- Дашборд аналитики: кросс-аккаунтная аналитика по креативам суммарно по выбранным аккаунтам и кампаниям.</li>
-        </ul>
+  <!-- Pain Points -->
+  <section id="pain-points" class="relative py-20 sm:py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-rose-500/20 to-transparent"></div>
+      <div class="absolute top-1/3 left-0 h-64 w-64 rounded-full bg-rose-500/5 blur-[100px]"></div>
+      <div class="absolute bottom-1/4 right-0 h-48 w-48 rounded-full bg-rose-500/5 blur-[80px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="animate-on-scroll text-center">
+        <span class="inline-flex items-center gap-2 rounded-full border border-rose-500/20 bg-rose-500/10 px-4 py-1.5 text-sm font-semibold text-rose-400">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          Знакомые проблемы?
+        </span>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+          Google UAC — боль<br class="hidden sm:block" /> каждого закупщика
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-slate-400">Если ты работаешь с Google UAC, ты точно сталкивался с этим. Каждый день. Снова и снова.</p>
       </div>
-    </section>
 
-    <section class="mt-0 rounded-2xl bg-white p-6 text-center shadow-sm sm:p-8">
-      <h2 class="text-2xl font-bold sm:text-3xl">Price</h2>
-      <div class="mx-auto mt-5 max-w-md rounded-xl border border-slate-200 p-5 text-center shadow-sm">
-        <p class="text-3xl font-extrabold">$199 <span class="text-base font-medium text-slate-600">/ month</span></p>
-        <ul class="mt-4 space-y-2 text-slate-700">
-          <li>- Bulk upload креативов</li>
-          <li>- Дашборд аналитики</li>
-        </ul>
-        <button
-          type="button"
-          data-open-demo
-          class="mt-6 inline-flex w-full items-center justify-center rounded-lg bg-indigo-600 px-5 py-3 font-semibold text-white transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          Book a demo
-        </button>
+      <div class="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <!-- Pain 1 -->
+        <div class="animate-on-scroll stagger-1 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-rose-500/30 sm:p-8">
+          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/10 text-sm font-bold text-rose-400 sm:top-8 sm:right-8">01</div>
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10">
+            <svg class="h-6 w-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+          </div>
+          <h3 class="text-lg font-bold sm:text-xl">Каждое видео — руками, по одному</h3>
+          <p class="mt-3 leading-relaxed text-slate-400">Процесс заливки видео в Google UAC невыносимо муторный: каждое видео, предварительно загруженное на YouTube, приходится добавлять <span class="text-rose-400 font-semibold">вручную, по одному</span>. При десятках креативов это превращается в часы бессмысленной рутины.</p>
+        </div>
+
+        <!-- Pain 2 -->
+        <div class="animate-on-scroll stagger-2 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-rose-500/30 sm:p-8">
+          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/10 text-sm font-bold text-rose-400 sm:top-8 sm:right-8">02</div>
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10">
+            <svg class="h-6 w-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+          </div>
+          <h3 class="text-lg font-bold sm:text-xl">Нет bulk-операций с видео</h3>
+          <p class="mt-3 leading-relaxed text-slate-400">Google <span class="text-rose-400 font-semibold">не даёт</span> массово управлять видео. Хочешь убрать одно видео из всех кампаний, адгрупп и аккаунтов? Придётся заходить в каждый и удалять вручную. Добавить в 50 кампаний — то же самое, x50.</p>
+        </div>
+
+        <!-- Pain 3 -->
+        <div class="animate-on-scroll stagger-3 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-rose-500/30 sm:p-8">
+          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/10 text-sm font-bold text-rose-400 sm:top-8 sm:right-8">03</div>
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10">
+            <svg class="h-6 w-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" /></svg>
+          </div>
+          <h3 class="text-lg font-bold sm:text-xl">Адгруппы нельзя копировать массово</h3>
+          <p class="mt-3 leading-relaxed text-slate-400">Креативные тесты? Новые адгруппы с новыми видео? Забудь о «сделать разом». Нужно <span class="text-rose-400 font-semibold">бегать в каждый аккаунт</span> и руками собирать адгруппы. 10 аккаунтов = 10 раз одно и то же.</p>
+        </div>
+
+        <!-- Pain 4 -->
+        <div class="animate-on-scroll stagger-4 group relative rounded-2xl border border-slate-800 bg-dark-800 p-6 transition-all hover:border-rose-500/30 sm:p-8">
+          <div class="absolute top-6 right-6 flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/10 text-sm font-bold text-rose-400 sm:top-8 sm:right-8">04</div>
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-rose-500/10">
+            <svg class="h-6 w-6 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" /></svg>
+          </div>
+          <h3 class="text-lg font-bold sm:text-xl">Репортинг — тёмный лес</h3>
+          <p class="mt-3 leading-relaxed text-slate-400">Аналитика по креативам в Google UAC <span class="text-rose-400 font-semibold">неинформативна и запутана</span>. А если у тебя несколько аккаунтов, посмотреть перформ видео кросс-аккаунтно — это квест уровня «невозможно».</p>
+        </div>
       </div>
-    </section>
-  </main>
 
-  <div id="demoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 p-4">
-    <div class="w-full max-w-md rounded-xl bg-white p-5 shadow-xl sm:p-6">
+      <!-- Bottom accent -->
+      <div class="animate-on-scroll mt-12 rounded-2xl border border-rose-500/10 bg-gradient-to-r from-rose-500/5 via-dark-800 to-rose-500/5 px-6 py-5 text-center sm:px-10">
+        <p class="text-lg font-semibold text-slate-300">
+          Итого: <span class="text-rose-400">часы рутины</span> каждую неделю, <span class="text-rose-400">выгорание</span> команды и <span class="text-rose-400">деньги на ветер</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- For Whom -->
+  <section id="for-whom" class="relative bg-dark-800 py-20 sm:py-28">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="animate-on-scroll text-center">
+        <span class="inline-flex items-center rounded-full bg-brand-500/10 px-4 py-1.5 text-sm font-semibold text-brand-400">Аудитория</span>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">Для кого</h2>
+        <p class="mx-auto mt-4 max-w-xl text-slate-400">Если хотя бы один пункт про тебя — нам по пути</p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <article class="animate-on-scroll stagger-1 glow-card group rounded-2xl bg-dark-700 p-6 transition-all hover:-translate-y-1 hover:bg-dark-600 sm:p-8">
+          <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/15 text-xl font-bold text-brand-400 transition-colors group-hover:bg-brand-500 group-hover:text-white">1</span>
+          <p class="mt-5 text-lg font-bold leading-snug">Закупщик, который устал хардкорить вручную каждый день</p>
+          <p class="mt-3 text-sm text-slate-400">Ты тратишь часы на рутинные действия, которые можно автоматизировать</p>
+        </article>
+        <article class="animate-on-scroll stagger-2 glow-card group rounded-2xl bg-dark-700 p-6 transition-all hover:-translate-y-1 hover:bg-dark-600 sm:p-8">
+          <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/15 text-xl font-bold text-brand-400 transition-colors group-hover:bg-brand-500 group-hover:text-white">2</span>
+          <p class="mt-5 text-lg font-bold leading-snug">Лид, который хочет сэкономить время команде и деньги</p>
+          <p class="mt-3 text-sm text-slate-400">Каждый час ручной работы — это деньги, которые можно вложить в рост</p>
+        </article>
+        <article class="animate-on-scroll stagger-3 glow-card group rounded-2xl bg-dark-700 p-6 transition-all hover:-translate-y-1 hover:bg-dark-600 sm:p-8">
+          <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/15 text-xl font-bold text-brand-400 transition-colors group-hover:bg-brand-500 group-hover:text-white">3</span>
+          <p class="mt-5 text-lg font-bold leading-snug">Лид, который печётся о психическом здоровье команды</p>
+          <p class="mt-3 text-sm text-slate-400">Рутина убивает мотивацию. Освободи команду для интересных задач</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI Calculator -->
+  <section id="roi" class="relative py-20 sm:py-28">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/5 blur-[120px]"></div>
+    </div>
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="animate-on-scroll text-center">
+        <span class="inline-flex items-center rounded-full bg-brand-500/10 px-4 py-1.5 text-sm font-semibold text-brand-400">Калькулятор ROI</span>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+          Сколько тебе стоит<br class="hidden sm:block" /> ручной monkey-job?
+        </h2>
+      </div>
+
+      <div class="animate-on-scroll mt-12 mx-auto max-w-3xl rounded-2xl border border-slate-800 bg-dark-800 p-6 sm:p-10">
+        <div class="grid gap-6 sm:grid-cols-2">
+          <label class="block">
+            <span class="text-sm font-semibold text-slate-300">% рабочего времени на заливку</span>
+            <input id="uploadPercent" type="number" min="0" max="100" step="1" value="20"
+              class="mt-2 w-full rounded-xl border border-slate-700 bg-dark-700 px-4 py-3 text-white outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/25" />
+          </label>
+          <label class="block">
+            <span class="text-sm font-semibold text-slate-300">Стоимость специалиста, $/мес</span>
+            <input id="monthlySalary" type="number" min="0" step="100" value="3000"
+              class="mt-2 w-full rounded-xl border border-slate-700 bg-dark-700 px-4 py-3 text-white outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/25" />
+          </label>
+        </div>
+
+        <div class="mt-8 grid gap-6 sm:grid-cols-2">
+          <div id="burnMoneyCard" class="rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 p-6 text-white shadow-xl shadow-brand-500/15 transition-all pulse-glow">
+            <div class="flex items-center gap-2 text-brand-200">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <span class="text-sm font-semibold">Это стоит тебе</span>
+            </div>
+            <p id="burnMoneyOut" class="mt-3 text-3xl font-extrabold sm:text-4xl">$0/мес</p>
+            <p id="burnHoursCardOut" class="mt-1 text-lg font-semibold text-brand-200">0 часов/мес</p>
+            <p id="validationMessage" class="mt-3 hidden text-sm font-medium"></p>
+          </div>
+          <div class="rounded-2xl border border-slate-700 bg-dark-700 p-6">
+            <div class="flex items-center gap-2 text-slate-400">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+              <span class="text-sm font-semibold">В год это</span>
+            </div>
+            <p id="burnMoneyYearOut" class="mt-3 text-3xl font-extrabold sm:text-4xl">$0/год</p>
+            <p id="burnHoursYearCardOut" class="mt-1 text-lg font-semibold text-slate-400">0 часов/год</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="relative bg-dark-800 py-20 sm:py-28">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="animate-on-scroll text-center">
+        <span class="inline-flex items-center rounded-full bg-brand-500/10 px-4 py-1.5 text-sm font-semibold text-brand-400">Возможности</span>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+          Мы сделали работу за Google
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-slate-400">Все что нужно для эффективной работы с UAC — в одном инструменте</p>
+      </div>
+
+      <div class="mt-14 animate-scale">
+        <img
+          src="assets/frame-793-1.png"
+          alt="Скрин интерфейса сервиса"
+          class="mx-auto w-full rounded-2xl border border-slate-700/50 shadow-2xl shadow-black/30"
+        />
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div class="animate-on-scroll stagger-1 group flex gap-4 rounded-2xl border border-slate-700/50 bg-dark-700 p-6 transition-all hover:border-brand-500/30 hover:bg-dark-600">
+          <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-500/15 transition-colors group-hover:bg-brand-500/25">
+            <svg class="h-6 w-6 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Bulk Upload</h3>
+            <p class="mt-1 text-sm text-slate-400 leading-relaxed">Загрузка в десятки аккаунтов и сотни кампаний в 1 клик</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-2 group flex gap-4 rounded-2xl border border-slate-700/50 bg-dark-700 p-6 transition-all hover:border-brand-500/30 hover:bg-dark-600">
+          <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-500/15 transition-colors group-hover:bg-brand-500/25">
+            <svg class="h-6 w-6 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Smart Naming</h3>
+            <p class="mt-1 text-sm text-slate-400 leading-relaxed">Сервис создает ad group с нужным неймингом и статусом старта/паузы</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-3 group flex gap-4 rounded-2xl border border-slate-700/50 bg-dark-700 p-6 transition-all hover:border-brand-500/30 hover:bg-dark-600">
+          <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-500/15 transition-colors group-hover:bg-brand-500/25">
+            <svg class="h-6 w-6 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">YouTube Links</h3>
+            <p class="mt-1 text-sm text-slate-400 leading-relaxed">Видео загружаются через bulk-вставку всех ссылок на YouTube-видео</p>
+          </div>
+        </div>
+        <div class="animate-on-scroll stagger-4 group flex gap-4 rounded-2xl border border-slate-700/50 bg-dark-700 p-6 transition-all hover:border-brand-500/30 hover:bg-dark-600">
+          <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-500/15 transition-colors group-hover:bg-brand-500/25">
+            <svg class="h-6 w-6 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+          </div>
+          <div>
+            <h3 class="font-bold text-lg">Аналитика</h3>
+            <p class="mt-1 text-sm text-slate-400 leading-relaxed">Кросс-аккаунтная аналитика по креативам суммарно по выбранным аккаунтам и кампаниям</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="relative py-20 sm:py-28">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute bottom-0 left-1/4 h-72 w-72 rounded-full bg-brand-500/5 blur-[100px]"></div>
+    </div>
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="animate-on-scroll text-center">
+        <span class="inline-flex items-center rounded-full bg-brand-500/10 px-4 py-1.5 text-sm font-semibold text-brand-400">Тарифы</span>
+        <h2 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">Простая и понятная цена</h2>
+        <p class="mx-auto mt-4 max-w-xl text-slate-400">Один план — все возможности. Без скрытых платежей.</p>
+      </div>
+
+      <div class="animate-scale mt-12 mx-auto max-w-md">
+        <div class="glow-card rounded-3xl bg-dark-800 p-8 text-center sm:p-10 pulse-glow">
+          <p class="text-sm font-semibold uppercase tracking-wider text-brand-400">Pro Plan</p>
+          <p class="mt-4 flex items-baseline justify-center gap-1">
+            <span class="text-5xl font-extrabold sm:text-6xl">$199</span>
+            <span class="text-lg text-slate-400">/ month</span>
+          </p>
+
+          <div class="mt-8 space-y-4 text-left">
+            <div class="flex items-center gap-3">
+              <span class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <span class="text-slate-300">Bulk upload креативов</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <span class="text-slate-300">Дашборд аналитики</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <span class="text-slate-300">Неограниченные аккаунты</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-500/20">
+                <svg class="h-3.5 w-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              <span class="text-slate-300">Приоритетная поддержка</span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            data-open-demo
+            class="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-500 px-6 py-4 text-base font-bold text-white shadow-xl shadow-brand-500/25 transition-all hover:bg-brand-600 hover:shadow-brand-500/40 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-dark-800"
+          >
+            Book a demo
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-dark-900 py-10">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <a href="#" class="flex items-center gap-2 text-lg font-extrabold">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-xs font-bold">UA</span>
+          <span>Helper</span>
+        </a>
+        <p class="text-sm text-slate-500">&copy; 2025 UA Helper. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Demo Modal -->
+  <div id="demoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+    <div class="w-full max-w-md rounded-2xl border border-slate-700/50 bg-dark-800 p-6 shadow-2xl sm:p-8 transform transition-all">
       <div class="flex items-start justify-between">
-        <h3 class="text-xl font-bold">Book a demo</h3>
-        <button id="closeModalBtn" type="button" class="rounded-md px-2 py-1 text-slate-500 hover:bg-slate-100 hover:text-slate-700" aria-label="Close">
-          ✕
+        <div>
+          <h3 class="text-xl font-extrabold">Book a demo</h3>
+          <p class="mt-1 text-sm text-slate-400">Напишем в Telegram в течение 24 часов</p>
+        </div>
+        <button id="closeModalBtn" type="button" class="rounded-lg p-2 text-slate-500 transition hover:bg-dark-700 hover:text-white" aria-label="Close">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
       </div>
 
-      <form id="demoForm" class="mt-4 space-y-4" novalidate>
+      <form id="demoForm" class="mt-6 space-y-5" novalidate>
         <div>
-          <label for="name" class="block text-sm font-medium text-slate-700">Name</label>
-          <input id="name" name="name" type="text" required class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none ring-indigo-500 focus:ring" />
-          <p id="nameError" class="mt-1 min-h-[20px] text-sm text-rose-600"></p>
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-slate-700">Email</label>
-          <input id="email" name="email" type="email" required class="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none ring-indigo-500 focus:ring" />
-          <p id="emailError" class="mt-1 min-h-[20px] text-sm text-rose-600"></p>
+          <label for="telegram" class="block text-sm font-semibold text-slate-300">Telegram</label>
+          <input id="telegram" name="telegram" type="text" required placeholder="@username"
+            class="mt-2 w-full rounded-xl border border-slate-700 bg-dark-700 px-4 py-3 text-white placeholder-slate-500 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/25" />
+          <p id="telegramError" class="mt-1 min-h-[20px] text-sm text-rose-400"></p>
         </div>
         <p id="formStatus" class="min-h-[20px] text-sm"></p>
         <button
           id="submitBtn"
           type="submit"
-          class="inline-flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 font-semibold text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-70"
+          class="inline-flex w-full items-center justify-center rounded-xl bg-brand-500 px-5 py-3.5 font-bold text-white shadow-lg shadow-brand-500/25 transition-all hover:bg-brand-600 hover:shadow-brand-500/40 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Send
+          Отправить
         </button>
       </form>
     </div>
   </div>
 
   <script>
+    // Scroll animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right, .animate-scale')
+      .forEach(el => observer.observe(el));
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // ROI Calculator
     const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSe2ppCU-n1UNWzOBky8offuZ3Gi4oBtC_9mOuVLdTvsI0r6sw/formResponse";
-    const GOOGLE_FORM_FIELDS = {
-      name: "entry.1253364346",
-      email: "entry.1399037352"
-    };
+    const GOOGLE_FORM_FIELDS = { telegram: "entry.1253364346" };
     const STANDARD_WORK_WEEK_HOURS = 40;
 
     const formatNumber = (value, maximumFractionDigits = 1) =>
@@ -167,7 +570,6 @@
       uploadPercent: document.getElementById("uploadPercent"),
       monthlySalary: document.getElementById("monthlySalary"),
     };
-
     const roiOutputs = {
       burnMoneyOut: document.getElementById("burnMoneyOut"),
       burnHoursCardOut: document.getElementById("burnHoursCardOut"),
@@ -176,7 +578,6 @@
       burnMoneyCard: document.getElementById("burnMoneyCard"),
       validationMessage: document.getElementById("validationMessage"),
     };
-
     const toSafeNumber = (value) => {
       const parsed = Number(value);
       return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
@@ -186,7 +587,6 @@
       const rawPercent = toSafeNumber(roiInputs.uploadPercent.value);
       const uploadPercent = Math.min(100, rawPercent);
       const monthlySalary = toSafeNumber(roiInputs.monthlySalary.value);
-
       const burnMoneyMonthly = monthlySalary * (uploadPercent / 100);
       const burnMoneyYearly = burnMoneyMonthly * 12;
       const burnHoursWeek = STANDARD_WORK_WEEK_HOURS * (uploadPercent / 100);
@@ -198,104 +598,71 @@
       roiOutputs.burnMoneyYearOut.textContent = `${formatMoney(burnMoneyYearly)}/год`;
       roiOutputs.burnHoursYearCardOut.textContent = `${formatNumber(burnHoursYear, 1)} часов/год`;
 
-      // Валидация: если меньше $600/мес, показываем предупреждение
       if (burnMoneyMonthly < 600) {
-        roiOutputs.burnMoneyCard.classList.remove("bg-indigo-600");
-        roiOutputs.burnMoneyCard.classList.add("bg-rose-600");
+        roiOutputs.burnMoneyCard.className = 'rounded-2xl bg-gradient-to-br from-rose-600 to-rose-800 p-6 text-white shadow-xl shadow-rose-500/15 transition-all';
         roiOutputs.validationMessage.classList.remove("hidden");
-        roiOutputs.validationMessage.textContent = "⚠️ Извини, но тебе этот сервис, скорее всего, не подойдет";
+        roiOutputs.validationMessage.textContent = "Извини, но тебе этот сервис, скорее всего, не подойдет";
       } else {
-        roiOutputs.burnMoneyCard.classList.remove("bg-rose-600");
-        roiOutputs.burnMoneyCard.classList.add("bg-indigo-600");
+        roiOutputs.burnMoneyCard.className = 'rounded-2xl bg-gradient-to-br from-brand-600 to-brand-800 p-6 text-white shadow-xl shadow-brand-500/15 transition-all pulse-glow';
         roiOutputs.validationMessage.classList.add("hidden");
       }
     }
 
-    Object.values(roiInputs).forEach((input) => {
-      input.addEventListener("input", recalculateROI);
-    });
+    Object.values(roiInputs).forEach(input => input.addEventListener("input", recalculateROI));
     recalculateROI();
 
+    // Modal
     const modal = document.getElementById("demoModal");
     const openButtons = document.querySelectorAll("[data-open-demo]");
     const closeModalBtn = document.getElementById("closeModalBtn");
     const demoForm = document.getElementById("demoForm");
     const submitBtn = document.getElementById("submitBtn");
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("email");
-    const nameError = document.getElementById("nameError");
-    const emailError = document.getElementById("emailError");
+    const telegramInput = document.getElementById("telegram");
+    const telegramError = document.getElementById("telegramError");
     const formStatus = document.getElementById("formStatus");
 
     function openModal() {
       modal.classList.remove("hidden");
       modal.classList.add("flex");
       document.body.classList.add("overflow-hidden");
-      nameInput.focus();
+      telegramInput.focus();
     }
-
     function closeModal() {
       modal.classList.add("hidden");
       modal.classList.remove("flex");
       document.body.classList.remove("overflow-hidden");
     }
 
-    openButtons.forEach((button) => button.addEventListener("click", openModal));
+    openButtons.forEach(button => button.addEventListener("click", openModal));
     closeModalBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) closeModal();
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+    modal.addEventListener("click", e => { if (e.target === modal) closeModal(); });
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
     });
 
-    function validateEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function setFieldError(el, message) {
-      el.textContent = message;
-    }
-
+    function setFieldError(el, message) { el.textContent = message; }
     function resetErrors() {
-      setFieldError(nameError, "");
-      setFieldError(emailError, "");
+      setFieldError(telegramError, "");
       formStatus.textContent = "";
       formStatus.className = "min-h-[20px] text-sm";
     }
 
-    async function sendLeadToGoogleForm(name, email) {
-      const formData = new FormData();
-      formData.append(GOOGLE_FORM_FIELDS.name, name);
-      formData.append(GOOGLE_FORM_FIELDS.email, email);
-
-      // Отправляем в Google Form через скрытый iframe, чтобы избежать CORS
+    async function sendLeadToGoogleForm(telegram) {
       const iframe = document.createElement('iframe');
       iframe.name = 'hidden_iframe';
       iframe.style.display = 'none';
       document.body.appendChild(iframe);
-
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = GOOGLE_FORM_ACTION;
       form.target = 'hidden_iframe';
-
-      const nameInput = document.createElement('input');
-      nameInput.type = 'hidden';
-      nameInput.name = GOOGLE_FORM_FIELDS.name;
-      nameInput.value = name;
-      form.appendChild(nameInput);
-
-      const emailInput = document.createElement('input');
-      emailInput.type = 'hidden';
-      emailInput.name = GOOGLE_FORM_FIELDS.email;
-      emailInput.value = email;
-      form.appendChild(emailInput);
-
+      const tgInput = document.createElement('input');
+      tgInput.type = 'hidden';
+      tgInput.name = GOOGLE_FORM_FIELDS.telegram;
+      tgInput.value = telegram;
+      form.appendChild(tgInput);
       document.body.appendChild(form);
       form.submit();
-
-      // Очищаем через секунду
       setTimeout(() => {
         document.body.removeChild(form);
         document.body.removeChild(iframe);
@@ -305,35 +672,15 @@
     demoForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       resetErrors();
-
-      const name = nameInput.value.trim();
-      const email = emailInput.value.trim();
-      let hasErrors = false;
-
-      if (!name) {
-        setFieldError(nameError, "Введите имя.");
-        hasErrors = true;
-      }
-
-      if (!email) {
-        setFieldError(emailError, "Введите email.");
-        hasErrors = true;
-      } else if (!validateEmail(email)) {
-        setFieldError(emailError, "Введите корректный email.");
-        hasErrors = true;
-      }
-
-      if (hasErrors) return;
-
+      const telegram = telegramInput.value.trim();
+      if (!telegram) { setFieldError(telegramError, "Введите ваш Telegram."); return; }
       submitBtn.disabled = true;
       formStatus.textContent = "Отправляем...";
-      formStatus.classList.add("text-slate-600");
-
+      formStatus.classList.add("text-slate-400");
       try {
-        await sendLeadToGoogleForm(name, email);
-        formStatus.textContent = "Спасибо! Напишем на email в течение 24 часов.";
-        formStatus.className = "min-h-[20px] text-sm text-emerald-700";
-
+        await sendLeadToGoogleForm(telegram);
+        formStatus.textContent = "Спасибо! Напишем в Telegram в течение 24 часов.";
+        formStatus.className = "min-h-[20px] text-sm text-emerald-400";
         setTimeout(() => {
           demoForm.reset();
           resetErrors();
@@ -341,8 +688,8 @@
           submitBtn.disabled = false;
         }, 1400);
       } catch (error) {
-        formStatus.textContent = "Не удалось отправить форму. Попробуйте еще раз.";
-        formStatus.className = "min-h-[20px] text-sm text-rose-600";
+        formStatus.textContent = "Не удалось отправить форму. Попробуйте ещё раз.";
+        formStatus.className = "min-h-[20px] text-sm text-rose-400";
         submitBtn.disabled = false;
       }
     });
